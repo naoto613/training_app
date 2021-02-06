@@ -59,10 +59,12 @@ Lint/StructNewOverride:
 
 Layout/LineLength:
   Max: 150
+  Exclude:
+    - "lib/tasks/dev.rake"
 
 Metrics/AbcSize:
   Exclude:
-    - "lib/tasks/dev.rake"
+    - "config"
 
 Metrics/BlockLength:
   CountComments: false
