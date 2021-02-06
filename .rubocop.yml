@@ -60,11 +60,11 @@ Lint/StructNewOverride:
 Layout/LineLength:
   Max: 150
   Exclude:
-    - "lib/tasks/dev.rake"
+    - "config/routes.rb"
 
 Metrics/AbcSize:
   Exclude:
-    - "config"
+    - "lib/tasks/dev.rake"
 
 Metrics/BlockLength:
   CountComments: false
@@ -74,6 +74,7 @@ Metrics/BlockLength:
     - "spec/**/*"
     - "app/views/**/*.jbuilder"
     - "lib/tasks/dev.rake"
+    - "lib/tasks/auto_annotate_models.rake"
 
 Metrics/ClassLength:
   CountComments: false
