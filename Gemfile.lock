@@ -107,9 +107,6 @@ GEM
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
-    pluginator (1.5.0)
-    pre-commit (0.39.0)
-      pluginator (~> 1.5)
     public_suffix (4.0.6)
     puma (4.3.7)
       nio4r (~> 2.0)
@@ -238,7 +235,6 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.2)
   mysql2
-  pre-commit
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   rubocop

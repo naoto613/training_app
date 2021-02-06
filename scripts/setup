@@ -1,0 +1,2 @@
+cp .githooks/pre-commit .git/hooks/.
+cp .githooks/commit-msg .git/hooks/.

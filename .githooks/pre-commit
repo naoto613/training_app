@@ -1,0 +1,28 @@
+#!/bin/bash
+
+FILES=$(git diff --name-only --diff-filter=ACMRTUXB --cached | grep '\.rb\|\.rake' | grep -v db/schema.rb)
+[ "$FILES" = "" ] && exit 0
+git add $FILES
+echo 'start rubocop ...'
+bundle exec rubocop $FILES
+RESULT=$?
+if [ $RESULT = 0 ]; then
+  echo 'rubocop succeed!'
+  exit 0
+fi
+
+echo 'rubocop failed!'
+echo 'start auto fixing...'
+bundle exec rubocop -a $FILES
+git add $FILES
+
+echo 'finished auto fix && recheck rubocop...'
+bundle exec rubocop $FILES
+RESULT=$?
+if [ $RESULT = 0 ]; then
+  echo 'rubocop succeed!'
+  exit 0
+fi
+
+echo 'auto fixing failed!'
+exit 1

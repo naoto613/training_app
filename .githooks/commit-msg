@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+message_file = ARGV[0]
+message = File.read(message_file)
+
+pattern = '\A(?:major|minor|patch)-' \
+          '(?:feat|fix|docs|style|test|perf|refactor|chore|ci|build|revert)\:' \
+          '(?:\(\w+\)|) '
+
+unless Regexp.new(pattern).match?(message)
+  puts <<~TEXT
+    [POLICY] フォーマットが正しくありません。
+             <semver>-<type>[(<optional>)] <subject>
+    semver = major | minor | patch
+    type = feat | fix | docs | style | test | perf | refactor | chore | ci | build | revert
+    Click here for details: .github/CONTRIBUTING.md
+    Your message was:
+    #{message}
+  TEXT
+  exit 1
+end
+
+if message.split(/\n/).first.size > 72
+  puts <<~TEXT
+    [POLICY] Message titleが72文字以上です。
+    Your message was:
+    #{message}
+  TEXT
+  exit 1
+end
