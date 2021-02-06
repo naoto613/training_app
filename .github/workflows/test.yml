@@ -52,8 +52,22 @@ jobs:
       - name: Bundle Install
         run: bundle install --jobs 4 --retry 3
 
-      - name: Migrate
-        run: bundle exec rails db:migrate:reset
+      - name: yarn Install
+        run: |
+          rm -rf node_modules/
+          rm yarn.lock
+          yarn install
 
-      - name: Test
+      # test用に用意したdatabase.yml.ciをコピー、テスト環境用のDBを作成
+      - name: Setup Database
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+        env:
+          RAILS_ENV: test
+
+      - name: Run RSpec
         run: bundle exec rspec
+        env:
+          RAILS_ENV: test
