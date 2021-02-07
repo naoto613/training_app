@@ -1,0 +1,24 @@
+name: Bump Patch Version
+
+on: workflow_dispatch
+
+jobs:
+  bump_patch_version:
+    name: bump_patch_version
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Bump Patch Version
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_API_TOKEN }}
+          OWNER: fujii331
+          REPO: training_app
+          BASE_BRANCH: master
+        run: |
+          ./scripts/set-github-action-committer.sh
+          git fetch --tags
+          ./scripts/bump_version.sh -p
+          ./scripts/pr_version_up.sh
