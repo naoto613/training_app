@@ -1,0 +1,22 @@
+name: Bump Staging
+
+on: workflow_dispatch
+
+jobs:
+  bump:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Push Staging Branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_API_TOKEN }}
+          OWNER: fujii331
+          REPO: training_app
+          BASE_BRANCH: master
+          DEPLOY_BRANCH: staging
+        run: |
+          ./scripts/set-github-action-committer.sh
+          git fetch --tags
+          ./scripts/bump_branch.sh
