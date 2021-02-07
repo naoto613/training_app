@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
       - name: Bump Patch Version
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: fujii331
           REPO: training_app
           BASE_BRANCH: master
