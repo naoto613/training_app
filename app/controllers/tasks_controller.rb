@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   def index
+    # 全て取得
     @tasks = Task.all
   end
 
