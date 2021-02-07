@@ -1,0 +1,40 @@
+name: Bump Version
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  bump:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Bump version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: fujii331
+          REPO: training_app
+          BASE_BRANCH: master
+        run: |
+          ./scripts/set-github-action-committer.sh
+          git fetch --tags
+          ./scripts/bump_version.sh
+          ./scripts/pr_version_up.sh
+  create_release:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: fujii331
+          REPO: training_app
+        run: |
+          ./scripts/set-github-action-committer.sh
+          git fetch --tags
+          ./scripts/release_version_up.sh

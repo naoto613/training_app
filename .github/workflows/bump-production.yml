@@ -1,0 +1,22 @@
+name: Bump Production
+
+on: workflow_dispatch
+
+jobs:
+  bump:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Push Production Branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: fujii331
+          REPO: training_app
+          BASE_BRANCH: staging
+          DEPLOY_BRANCH: production
+        run: |
+          ./scripts/set-github-action-committer.sh
+          git fetch --tags
+          ./scripts/bump_branch.sh

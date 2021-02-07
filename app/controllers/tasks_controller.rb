@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   def index
+    # 全て取得
     @tasks = Task.all
   end
 
@@ -14,7 +15,6 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to tasks_path
     else
-      # エラーチェック
       redirect_to new_task_path, alert: '値が不正ですよ'
     end
   end
