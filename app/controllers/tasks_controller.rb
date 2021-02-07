@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   def index
+    # test
     @tasks = Task.all
   end
 
