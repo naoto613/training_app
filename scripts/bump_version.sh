@@ -4,7 +4,7 @@ set -ex
 getopts "p" INCLUDE_PATCH || true
 
 CURRENT=$(cat ".api-version")
-COMMIT_LIST=$(git log --pretty=format:"%s" --no-merges "v$CURRENT..HEAD" | grep -o '\(^major\)\|\(^minor\)\|\(^patch\)' || echo "")
+COMMIT_LIST=$(git log --pretty=format:"%s" --no-merges | grep -o '\(^major\)\|\(^minor\)\|\(^patch\)' || echo "")
 
 next_version() {
   if [[ $4 =~ (^|[[:space:]])"major"($|[[:space:]]) ]] ; then
