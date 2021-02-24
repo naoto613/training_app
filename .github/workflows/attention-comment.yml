@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - ".github/workflows/attention-comment.yml"
+      - ".api-version"
 
 jobs:
   comment:
